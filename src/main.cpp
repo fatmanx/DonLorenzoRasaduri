@@ -1,5 +1,5 @@
 #define LED_PIN 27
-#define LED_SEQ_CNT 8
+#define LED_SEQ_CNT 6
 #define LED_SEQ_PERIOD 300
 
 #define ONE_WIRE_BUS 26
