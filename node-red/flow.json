@@ -1,0 +1,606 @@
+[
+    {
+        "id": "f750a197.7f1f1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c6fc36d8.3bbfd8",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "e90dd97e.140028",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "80a85f2a.6c9dc",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp0",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "cd06fee7.0d3d5",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "2c35a3a9.5c65dc",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "4291d3d7.22727c",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "c95c7c47.61dc4",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp3",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 380,
+        "wires": [
+            [
+                "f9c4b6a4.b80f38",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "793676b6.b4d1a8",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp4",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [
+                "b6b93f4d.29f85",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "c7251f7e.7cd4b",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_temp5",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 320,
+        "y": 500,
+        "wires": [
+            [
+                "7930666d.225fb8",
+                "dc55348a.eaeee8"
+            ]
+        ]
+    },
+    {
+        "id": "cd06fee7.0d3d5",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4291d3d7.22727c",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e90dd97e.140028",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f9c4b6a4.b80f38",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 5,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "b6b93f4d.29f85",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 6,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "7930666d.225fb8",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 7,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "{{msg.topic}}",
+        "label": "deg",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#2bcfff",
+            "#3eba2c",
+            "#ff0202"
+        ],
+        "seg1": "15",
+        "seg2": "33",
+        "x": 630,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "70d2c5c9.b0192c",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_humid0",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 330,
+        "y": 580,
+        "wires": [
+            [
+                "e37f2915.6e7348"
+            ]
+        ]
+    },
+    {
+        "id": "e69ec8e0.45f3c8",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_humid1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "cb7987ab.aac158"
+            ]
+        ]
+    },
+    {
+        "id": "d8e7ebf1.399bb8",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/DL_humid2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 330,
+        "y": 700,
+        "wires": [
+            [
+                "ef2314fd.34a598"
+            ]
+        ]
+    },
+    {
+        "id": "e37f2915.6e7348",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 10,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "{{msg.topic}}",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ac987d",
+            "#3eba2c",
+            "#3883fe"
+        ],
+        "seg1": "40",
+        "seg2": "75",
+        "x": 630,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "d5697541.bb5698",
+        "type": "ui_text",
+        "z": "f750a197.7f1f1",
+        "group": "17d7bc04.dce964",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Umiditate",
+        "format": "",
+        "layout": "row-center",
+        "x": 480,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "517f2382.9f252c",
+        "type": "ui_text",
+        "z": "f750a197.7f1f1",
+        "group": "17d7bc04.dce964",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temperatura",
+        "format": "",
+        "layout": "row-center",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "cb7987ab.aac158",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 11,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "{{msg.topic}}",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ac987d",
+            "#3eba2c",
+            "#3883fe"
+        ],
+        "seg1": "40",
+        "seg2": "75",
+        "x": 630,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "ef2314fd.34a598",
+        "type": "ui_gauge",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 13,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "{{msg.topic}}",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ac987d",
+            "#3eba2c",
+            "#3883fe"
+        ],
+        "seg1": "40",
+        "seg2": "75",
+        "x": 630,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "4236fe3f.f8b2c",
+        "type": "mqtt in",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "696d84af.ea502c",
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "e3c0ac4a.c7a87"
+            ]
+        ]
+    },
+    {
+        "id": "e3c0ac4a.c7a87",
+        "type": "debug",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1090,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "dc55348a.eaeee8",
+        "type": "ui_chart",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "group": "17d7bc04.dce964",
+        "order": 12,
+        "width": "9",
+        "height": "4",
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "bezier",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eb00a255.5888b",
+        "type": "ui_text_input",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "label": "Report period (ms)",
+        "tooltip": "",
+        "group": "17d7bc04.dce964",
+        "order": 14,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "mode": "number",
+        "delay": 300,
+        "topic": "/setParameterReportPeriod",
+        "x": 1050,
+        "y": 500,
+        "wires": [
+            [
+                "be928df9.2dd3d"
+            ]
+        ]
+    },
+    {
+        "id": "be928df9.2dd3d",
+        "type": "mqtt out",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "696d84af.ea502c",
+        "x": 1270,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c8f26b6d.40b3f8",
+        "type": "inject",
+        "z": "f750a197.7f1f1",
+        "name": "",
+        "topic": "",
+        "payload": "10000",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 790,
+        "y": 500,
+        "wires": [
+            [
+                "eb00a255.5888b"
+            ]
+        ]
+    },
+    {
+        "id": "696d84af.ea502c",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "17d7bc04.dce964",
+        "type": "ui_group",
+        "z": "",
+        "name": "Solar rasaduri",
+        "tab": "b027efc4.aa608",
+        "order": 1,
+        "disp": true,
+        "width": "9",
+        "collapse": true
+    },
+    {
+        "id": "b027efc4.aa608",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
