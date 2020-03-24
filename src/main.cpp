@@ -1,6 +1,6 @@
-#define LED_PIN 27
-#define LED_SEQ_CNT 6
-#define LED_SEQ_PERIOD 300
+#define LED_PIN 5
+#define LED_SEQ_CNT 8
+#define LED_SEQ_PERIOD 200
 
 #define ONE_WIRE_BUS 26
 #define DS18_NO 3
@@ -45,10 +45,10 @@
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
-DeviceAddress ds18[] = {
-    {0x28, 0x3A, 0x4E, 0x94, 0x97, 0x09, 0x03, 0x9A},
-    {0x28, 0x99, 0x0F, 0x79, 0x97, 0x19, 0x03, 0x83},
-    {0x28, 0x39, 0x02, 0x94, 0x97, 0x10, 0x03, 0x55}};
+// DeviceAddress ds18[] = {
+//     {0x28, 0x3A, 0x4E, 0x94, 0x97, 0x09, 0x03, 0x9A},
+//     {0x28, 0x99, 0x0F, 0x79, 0x97, 0x19, 0x03, 0x83},
+//     {0x28, 0x39, 0x02, 0x94, 0x97, 0x10, 0x03, 0x55}};
 
 TempAndHumidity dht22Data;
 DHTesp dd[DHT_CNT];
@@ -57,7 +57,7 @@ int dhtPins[] = {DHTPIN0, DHTPIN1, DHTPIN2};
 String ssid = "";
 String pass = "";
 String broker_ip = "";
-int reportPeriod = 10000;
+int reportPeriod = 1;
 
 WiFiClient net;
 MQTTClient client;
@@ -68,10 +68,71 @@ char incomingChar;
 bool doNotRetryWiFi = false;
 bool isConf = false;
 
+char *outStrDS18 = (char *)calloc(64, sizeof(char));
+char *outStrDHT22 = (char *)calloc(64, sizeof(char));
+
+int numberOfDevices = 0;
+DeviceAddress tempDeviceAddress;
+DeviceAddress *deviceAddresses;
+
+String *addrs;
+
+void searchAddresses()
+{
+    setState(STATE_SEARCH_DS18B20, true);
+    while (true)
+    {
+        if (!sensors.getAddress(tempDeviceAddress, numberOfDevices))
+        {
+            break;
+        }
+        numberOfDevices++;
+    }
+
+    deviceAddresses = (DeviceAddress *)calloc(numberOfDevices, sizeof(DeviceAddress));
+
+    addrs = (String *)calloc(numberOfDevices, sizeof(String) * 8);
+    numberOfDevices = 0;
+    while (true)
+    {
+        if (!sensors.getAddress(tempDeviceAddress, numberOfDevices))
+        {
+            break;
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            *((*(deviceAddresses + numberOfDevices)) + i) = tempDeviceAddress[i];
+        }
+        addrs[numberOfDevices] = getAddr(tempDeviceAddress);
+        numberOfDevices++;
+    }
+    setState(STATE_SEARCH_DS18B20, false);
+}
+
 void setup()
 {
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
+
+    // return;
+
+    sensors.begin();
+    searchAddresses();
+    Serial.print("Found ");
+    Serial.print(numberOfDevices, DEC);
+    Serial.println(" devices.");
+
+    Serial.println(addrs[0]);
+    Serial.println(addrs[1]);
+    Serial.println(addrs[2]);
+    Serial.println();
+    Serial.println(getAddr(*deviceAddresses));
+    Serial.println(getAddr(*deviceAddresses + 8));
+    Serial.println(getAddr(*deviceAddresses + 16));
+
+    // return;
+
     if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED))
     {
         Serial.println("SPIFFS Mount Failed");
@@ -90,6 +151,7 @@ void setup()
         reportPeriod = atoi(readStringFromFile(SPIFFS, "/rep_per").c_str());
         Serial.print("report period:");
         Serial.println(reportPeriod);
+        reportPeriod = max(1, reportPeriod);
     }
 
     ssid = readStringFromFile(SPIFFS, "/ssid");
@@ -110,11 +172,17 @@ void setup()
     client.begin(broker_ip.c_str(), net);
     client.onMessage(messageReceived);
     connect();
+    delay(500);
+    client.publish("/DL_report_period", String(reportPeriod));
 }
 
 void loop()
 {
+
+    // delay(20);
+
     doLed();
+    // return;
 
     if (isState(STATE_BT_ON) && SerialBT.isReady() && SerialBT.available())
     {
@@ -143,29 +211,38 @@ void loop()
     {
         connect();
     }
-    if (millis() - lastMillis > reportPeriod)
+    if (millis() - lastMillis > reportPeriod * 1000)
     {
         lastMillis = millis();
         for (int i = 0; i < DHT_CNT; i++)
         {
             publishDHT22(i);
         }
-        sensors.requestTemperatures();
-        for (int i = 0; i < DS18_NO; i++)
+        for (int i = 0; i < numberOfDevices; i++)
         {
+            sensors.requestTemperatures();
             publishDS18B20(i);
         }
+        client.publish("/DL_report_period", String(reportPeriod));
     }
 }
 
 void publishDS18B20(int i)
 {
-    float temp = sensors.getTempC(ds18[i]);
+    float temp = sensors.getTempC(*deviceAddresses + i * 8);
+    temp = sensors.getTempC(*deviceAddresses + i * 8);
     Serial.print("DS18B20 - ");
     Serial.print(i);
     Serial.print(" - ");
+    Serial.print(getAddr(*deviceAddresses + i * 8));
+    Serial.print(" - ");
     Serial.println(temp);
-    client.publish("/DL_temp" + String(i + 3), String(temp));
+
+    // client.publish("/DL_temp" + String(i + 3), String(temp));
+
+    sprintf(outStrDS18, "{\"i\":\"%s\", \"t\":%.2f}", getAddr(*deviceAddresses + i * 8).c_str(), temp);
+    // Serial.println(outStrDS18);
+    client.publish("/DL_temp", outStrDS18);
 }
 
 void publishDHT22(int i)
@@ -174,8 +251,12 @@ void publishDHT22(int i)
     Serial.print(i);
     Serial.print(" - ");
     Serial.println("Temp: " + String(dht22Data.temperature, 2) + "'C Humidity: " + String(dht22Data.humidity, 1) + "%");
-    client.publish("/DL_temp" + String(i), String(dht22Data.temperature));
-    client.publish("/DL_humid" + String(i), String(dht22Data.humidity));
+    // client.publish("/DL_temp" + String(i), String(dht22Data.temperature));
+    // client.publish("/DL_humid" + String(i), String(dht22Data.humidity));
+
+    sprintf(outStrDHT22, "{\"i\":\"%d\", \"t\":%.2f, \"h\":%.2f}", i, dht22Data.temperature, dht22Data.humidity);
+    // Serial.println(outStrDHT22);
+    client.publish("/DL_temp_humid", outStrDHT22);
 }
 
 void connect()
@@ -223,6 +304,7 @@ void connect()
     Serial.println("\nconnected!");
 
     client.subscribe("/setParameterReportPeriod");
+    client.subscribe("/reset");
 
     setState(STATE_BROKER_ON, true);
     setState(STATE_BROKER_CONNECTING, false);
@@ -234,5 +316,20 @@ void messageReceived(String &topic, String &payload)
     if (topic == "/setParameterReportPeriod")
     {
         reportPeriod = atoi(payload.c_str());
+        Serial.println(reportPeriod);
+        reportPeriod = max(reportPeriod, 1);
+
+        writeFile(SPIFFS, "/rep_per", payload.c_str());
     }
+    else if (topic == "/reset")
+    {
+        ESP.restart();
+    }
+}
+
+String getAddr(DeviceAddress addr)
+{
+    char ret[24] = "";
+    sprintf(ret, "%02X-%02X-%02X-%02X-%02X-%02X-%02X-%02X", addr[0], addr[1], addr[3], addr[3], addr[4], addr[5], addr[6], addr[7]);
+    return ret;
 }

@@ -1,0 +1,1483 @@
+[
+    {
+        "id": "6497ade9.38b574",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e20bef35.1eef2",
+        "type": "mqtt out",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "696d84af.ea502c",
+        "x": 730,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6faa1ad6.c79864",
+        "type": "mqtt in",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "topic": "/DL_temp",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "696d84af.ea502c",
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "370a4d71.15fce2"
+            ]
+        ]
+    },
+    {
+        "id": "be8799c.ab21768",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 1,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură sol 1",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "370a4d71.15fce2",
+        "type": "switch",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "property": "payload.i",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "28-99-79-79-97-19-03-83",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "28-39-94-94-97-10-03-55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "28-3A-94-94-97-09-03-9A",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "122602fe.81727d"
+            ],
+            [
+                "def57587.bec1d8"
+            ],
+            [
+                "b372abb2.1b05c8"
+            ]
+        ]
+    },
+    {
+        "id": "122602fe.81727d",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "be8799c.ab21768",
+                "ea5e301b.b1dd7"
+            ]
+        ]
+    },
+    {
+        "id": "def57587.bec1d8",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 120,
+        "wires": [
+            [
+                "83e55462.637fd8",
+                "7480d6a6.f12cf8"
+            ]
+        ]
+    },
+    {
+        "id": "b372abb2.1b05c8",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "f90fff7.ad598",
+                "f298d94b.24f3a8"
+            ]
+        ]
+    },
+    {
+        "id": "83e55462.637fd8",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 2,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură sol 2",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f90fff7.ad598",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 3,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură sol 3",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7e3660fd.a045c",
+        "type": "mqtt in",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "topic": "/DL_temp_humid",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "696d84af.ea502c",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "7e50083a.20f618"
+            ]
+        ]
+    },
+    {
+        "id": "7e50083a.20f618",
+        "type": "switch",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "property": "payload.i",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 370,
+        "y": 380,
+        "wires": [
+            [
+                "9ed7ad09.e5e66",
+                "62b8877.c96b678"
+            ],
+            [
+                "ca686d1a.b3f1f",
+                "e82adf7b.66d0b"
+            ],
+            [
+                "a8611d96.65c67",
+                "c7ca82a8.81756"
+            ]
+        ]
+    },
+    {
+        "id": "9ed7ad09.e5e66",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            [
+                "4bda5e73.ea07a",
+                "848c9f9c.1b7e3"
+            ]
+        ]
+    },
+    {
+        "id": "62b8877.c96b678",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "humid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.h",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 320,
+        "wires": [
+            [
+                "8033b105.610b2",
+                "50fd7fee.7aabb"
+            ]
+        ]
+    },
+    {
+        "id": "4bda5e73.ea07a",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 4,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură aer 1",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8033b105.610b2",
+        "type": "ui_level",
+        "z": "6497ade9.38b574",
+        "group": "38244698.92808a",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "umiditate aer 1",
+        "label": "Umiditate aer 1 - ",
+        "colorHi": "#e60000",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#00b33c",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "",
+        "layout": "sh",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "soft",
+        "shape": "3",
+        "colorschema": "fixed",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": true,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "peaktime": 3000,
+        "x": 820,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ca686d1a.b3f1f",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 380,
+        "wires": [
+            [
+                "58e976f5.fec198",
+                "229467c5.e5a978"
+            ]
+        ]
+    },
+    {
+        "id": "e82adf7b.66d0b",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "humid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.h",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 420,
+        "wires": [
+            [
+                "3b8f4917.5de286",
+                "ad8862f4.4648f"
+            ]
+        ]
+    },
+    {
+        "id": "58e976f5.fec198",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 5,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură aer 2",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3b8f4917.5de286",
+        "type": "ui_level",
+        "z": "6497ade9.38b574",
+        "group": "38244698.92808a",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "umiditate aer 2",
+        "label": "Umiditate aer 2 - ",
+        "colorHi": "#e60000",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#00b33c",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "",
+        "layout": "sh",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "soft",
+        "shape": "3",
+        "colorschema": "fixed",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": true,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "peaktime": 3000,
+        "x": 820,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a8611d96.65c67",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.t",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "7ad3022b.7682dc",
+                "6bc8d997.8e8b68"
+            ]
+        ]
+    },
+    {
+        "id": "c7ca82a8.81756",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "humid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.h",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 520,
+        "wires": [
+            [
+                "91f4f69.0403a08",
+                "f370f01c.17b63"
+            ]
+        ]
+    },
+    {
+        "id": "7ad3022b.7682dc",
+        "type": "ui_gauge",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "38244698.92808a",
+        "order": 6,
+        "width": "2",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Temperatură aer 3",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#03cdf1",
+            "#2db80a",
+            "#f40d0d"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "91f4f69.0403a08",
+        "type": "ui_level",
+        "z": "6497ade9.38b574",
+        "group": "38244698.92808a",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "name": "umiditate aer 3",
+        "label": "Umiditate aer 3 - ",
+        "colorHi": "#e60000",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#00b33c",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "",
+        "layout": "sh",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "soft",
+        "shape": "3",
+        "colorschema": "fixed",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": true,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "peaktime": 3000,
+        "x": 820,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "be72002b.06bca",
+        "type": "ui_chart",
+        "z": "6497ade9.38b574",
+        "name": "ds18 temp",
+        "group": "79808eac.ac8b9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatură sol",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "24",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#b51e1e",
+            "#4dac35",
+            "#3f36d8",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 1450,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f298d94b.24f3a8",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "sol 3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 160,
+        "wires": [
+            [
+                "be72002b.06bca",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "7480d6a6.f12cf8",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "sol 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 120,
+        "wires": [
+            [
+                "be72002b.06bca",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "ea5e301b.b1dd7",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "sol 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 80,
+        "wires": [
+            [
+                "be72002b.06bca",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "d414e7ca.32e1e8",
+        "type": "mqtt in",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "topic": "/DL_report_period",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "696d84af.ea502c",
+        "x": 170,
+        "y": 660,
+        "wires": [
+            [
+                "fa54a87e.b1e238"
+            ]
+        ]
+    },
+    {
+        "id": "fa54a87e.b1e238",
+        "type": "ui_numeric",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "label": "Interval ESP32 (secunde)",
+        "tooltip": "",
+        "group": "755207d0.854638",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "wrap": false,
+        "passthru": true,
+        "topic": "/setParameterReportPeriod",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "3600",
+        "step": "1",
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "e20bef35.1eef2"
+            ]
+        ]
+    },
+    {
+        "id": "46efe6e0.23f608",
+        "type": "ui_button",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "group": "8430be1e.aa18",
+        "order": 14,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Reset ESP32",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "doReset",
+        "payloadType": "global",
+        "topic": "/reset",
+        "x": 460,
+        "y": 700,
+        "wires": [
+            [
+                "e20bef35.1eef2"
+            ]
+        ]
+    },
+    {
+        "id": "5afabeb2.16ee1",
+        "type": "ui_switch",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "label": "Reset ESP32",
+        "tooltip": "",
+        "group": "755207d0.854638",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 340,
+        "y": 860,
+        "wires": [
+            [
+                "3e4b273f.7bb318"
+            ]
+        ]
+    },
+    {
+        "id": "926a5203.04119",
+        "type": "ui_ui_control",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "events": "all",
+        "x": 1020,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e4b273f.7bb318",
+        "type": "switch",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "jsonata"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 860,
+        "wires": [
+            [
+                "63c8bcbd.762e74"
+            ],
+            [
+                "41a54158.e8b55"
+            ]
+        ]
+    },
+    {
+        "id": "41a54158.e8b55",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"group\":{\"hide\":[\"Răsaduri_Reset\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 880,
+        "wires": [
+            [
+                "926a5203.04119"
+            ]
+        ]
+    },
+    {
+        "id": "63c8bcbd.762e74",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"group\":{\"show\":[\"Răsaduri_Reset\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 840,
+        "wires": [
+            [
+                "926a5203.04119"
+            ]
+        ]
+    },
+    {
+        "id": "43a10aef.4c5f14",
+        "type": "inject",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "6",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 860,
+        "wires": [
+            [
+                "5afabeb2.16ee1"
+            ]
+        ]
+    },
+    {
+        "id": "abd8c0b5.a1eeb",
+        "type": "ui_chart",
+        "z": "6497ade9.38b574",
+        "name": "humidity",
+        "group": "79808eac.ac8b9",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Umiditate aer",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "24",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 1440,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6bc8d997.8e8b68",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 480,
+        "wires": [
+            [
+                "21c90cca.dfc8c4",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "229467c5.e5a978",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 380,
+        "wires": [
+            [
+                "21c90cca.dfc8c4",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "848c9f9c.1b7e3",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 280,
+        "wires": [
+            [
+                "21c90cca.dfc8c4",
+                "d8f062d0.6cb52"
+            ]
+        ]
+    },
+    {
+        "id": "50fd7fee.7aabb",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 320,
+        "wires": [
+            [
+                "abd8c0b5.a1eeb",
+                "7cdb3db6.901374"
+            ]
+        ]
+    },
+    {
+        "id": "ad8862f4.4648f",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 420,
+        "wires": [
+            [
+                "abd8c0b5.a1eeb",
+                "7cdb3db6.901374"
+            ]
+        ]
+    },
+    {
+        "id": "f370f01c.17b63",
+        "type": "change",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aer 3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 520,
+        "wires": [
+            [
+                "abd8c0b5.a1eeb",
+                "7cdb3db6.901374"
+            ]
+        ]
+    },
+    {
+        "id": "21c90cca.dfc8c4",
+        "type": "ui_chart",
+        "z": "6497ade9.38b574",
+        "name": "dht22 temp",
+        "group": "79808eac.ac8b9",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatură aer",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "24",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#e8c500",
+            "#00dddd",
+            "#ed0fff",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 1450,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d59c52f3.e9aa2",
+        "type": "debug",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 2450,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4db191d3.8ecb8",
+        "type": "function",
+        "z": "6497ade9.38b574",
+        "name": "Prepare email temp",
+        "func": "\n//subject\nvar newTopic=\"Temp Alert sensor:\" + msg.topic + \" temp: \" + msg.payload;\n\n//content\nvar newPayload=\"Temp Alert sensor:\" + msg.topic + \" temp: \" + msg.payload;\n\nmsg.topic=newTopic;\nmsg.payload=newPayload;\n//msg.to=\"fatmanfatmanfatman@gmail.com\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1690,
+        "y": 220,
+        "wires": [
+            [
+                "3138b03.ae3ea5"
+            ]
+        ]
+    },
+    {
+        "id": "433d0b83.005554",
+        "type": "e-mail",
+        "z": "6497ade9.38b574",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "alarmatmp@gmail.com",
+        "dname": "fowueedqmolakorl",
+        "x": 2150,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d8f062d0.6cb52",
+        "type": "function",
+        "z": "6497ade9.38b574",
+        "name": "filter temp range",
+        "func": "if(msg.payload<-10 || msg.payload>30){\nreturn msg;    \n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1440,
+        "y": 220,
+        "wires": [
+            [
+                "4db191d3.8ecb8"
+            ]
+        ]
+    },
+    {
+        "id": "3138b03.ae3ea5",
+        "type": "trigger",
+        "z": "6497ade9.38b574",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "nul",
+        "duration": "30",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1910,
+        "y": 220,
+        "wires": [
+            [
+                "d59c52f3.e9aa2",
+                "433d0b83.005554"
+            ]
+        ]
+    },
+    {
+        "id": "7cdb3db6.901374",
+        "type": "function",
+        "z": "6497ade9.38b574",
+        "name": "filter humid range",
+        "func": "if(msg.payload>50){\nreturn msg;    \n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1450,
+        "y": 380,
+        "wires": [
+            [
+                "f49c0a35.b1f748"
+            ]
+        ]
+    },
+    {
+        "id": "f49c0a35.b1f748",
+        "type": "function",
+        "z": "6497ade9.38b574",
+        "name": "Prepare email humid",
+        "func": "\n//subject\nvar newTopic=\"Humidity Alert sensor:\" + msg.topic + \" humid: \" + msg.payload;\n\n//content\nvar newPayload=\"Humidity Alert sensor:\" + msg.topic + \" humid: \" + msg.payload;\n\nmsg.topic=newTopic;\nmsg.payload=newPayload;\n//msg.to=\"fatmanfatmanfatman@gmail.com\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1700,
+        "y": 380,
+        "wires": [
+            [
+                "30cf4c97.eaafd4"
+            ]
+        ]
+    },
+    {
+        "id": "30cf4c97.eaafd4",
+        "type": "trigger",
+        "z": "6497ade9.38b574",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "nul",
+        "duration": "30",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1910,
+        "y": 380,
+        "wires": [
+            [
+                "d59c52f3.e9aa2",
+                "433d0b83.005554"
+            ]
+        ]
+    },
+    {
+        "id": "696d84af.ea502c",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "38244698.92808a",
+        "type": "ui_group",
+        "z": "",
+        "name": "Temperatură și umiditate",
+        "tab": "704814a3.94ad5c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "79808eac.ac8b9",
+        "type": "ui_group",
+        "z": "",
+        "name": "Grafic 24h",
+        "tab": "704814a3.94ad5c",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "755207d0.854638",
+        "type": "ui_group",
+        "z": "",
+        "name": "Configurație",
+        "tab": "704814a3.94ad5c",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "8430be1e.aa18",
+        "type": "ui_group",
+        "z": "",
+        "name": "Reset",
+        "tab": "704814a3.94ad5c",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "704814a3.94ad5c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Răsaduri",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]

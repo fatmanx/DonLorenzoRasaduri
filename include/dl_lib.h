@@ -219,11 +219,12 @@ int seqIndex = 0;
 int seqID = -1;
 
 int LEDSequence[][LED_SEQ_CNT] = {
-    {1, 1, 1, 1, 1, 0},
-    {1, 1, 1, 1, 0, 0},
-    {1, 1, 1, 0, 0, 0},
-    {1, 1, 0, 0, 0, 0},
-    {1, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 0, 0, 0},
+    {1, 1, 1, 1, 0, 0, 0, 0},
+    {1, 1, 1, 0, 0, 0, 0, 0},
+    {1, 1, 0, 0, 0, 0, 0, 0},
+    {1, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 0, 1, 1, 0, 0},
 
 };
 
@@ -231,7 +232,7 @@ void setLed(bool on)
 {
     digitalWrite(LED_PIN, on);
 }
-int isx = 0;
+bool isLedOnCACAT = false;
 void doLed()
 {
     if (isState(STATE_BROKER_ON))
@@ -254,12 +255,16 @@ void doLed()
     {
         seqID = 0;
     }
+    else if (isState(STATE_SEARCH_DS18B20))
+    {
+        seqID = 5;
+    }
 
     if (millis() - lastSeqTime > LED_SEQ_PERIOD)
     {
         lastSeqTime = millis();
-        isx = 1 - isx;
-        if (isx)
+        isLedOnCACAT = !isLedOnCACAT;
+        if (isLedOnCACAT)
         {
             setLed(0);
         }
@@ -270,6 +275,7 @@ void doLed()
         }
     }
 }
+
 
 //###########################################################################################################
 // STATE CONTROL
