@@ -17,6 +17,7 @@
 #include <DallasTemperature.h>
 
 BluetoothSerial SerialBT;
+char deviceID[13];
 
 void setState(int stateConst, bool isOn);
 bool isState(int stateConst);

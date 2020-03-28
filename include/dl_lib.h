@@ -171,7 +171,7 @@ void deleteFile(fs::FS &fs, const char *path)
 
 void startBT()
 {
-    SerialBT.begin("ESP32 v4");
+    SerialBT.begin(String(VERSION) + " - " + String(deviceID));
     Serial.println("SerialBT started");
     setState(STATE_BT_ON, true);
     setState(STATE_WIFI_ON, false);
@@ -275,7 +275,6 @@ void doLed()
         }
     }
 }
-
 
 //###########################################################################################################
 // STATE CONTROL

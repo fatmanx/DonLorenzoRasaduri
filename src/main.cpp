@@ -1,4 +1,6 @@
-#define LED_PIN 5
+#define VERSION "Rasaduri V1.0"
+#define BUTTON_PIN 15
+#define LED_PIN 4
 #define LED_SEQ_CNT 8
 #define LED_SEQ_PERIOD 200
 
@@ -110,34 +112,34 @@ void searchAddresses()
     setState(STATE_SEARCH_DS18B20, false);
 }
 
-void setup()
+
+void setDeviceId()
 {
-    Serial.begin(115200);
-    pinMode(LED_PIN, OUTPUT);
+    uint64_t chipid = ESP.getEfuseMac();
+    uint16_t chip = (uint16_t)(chipid >> 32);
+    snprintf(deviceID, 23, "%04X%08X", chip, (uint32_t)chipid);
+}
 
-    // return;
-
-    sensors.begin();
-    searchAddresses();
-    Serial.print("Found ");
-    Serial.print(numberOfDevices, DEC);
-    Serial.println(" devices.");
-
-    Serial.println(addrs[0]);
-    Serial.println(addrs[1]);
-    Serial.println(addrs[2]);
-    Serial.println();
-    Serial.println(getAddr(*deviceAddresses));
-    Serial.println(getAddr(*deviceAddresses + 8));
-    Serial.println(getAddr(*deviceAddresses + 16));
-
-    // return;
-
-    if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED))
+void blinkLed(int times, int _delay)
+{
+    for (int i = 0; i < times; i++)
     {
-        Serial.println("SPIFFS Mount Failed");
-        return;
+        setLed(1);
+        delay(_delay);
+        setLed(0);
+        delay(_delay);
     }
+}
+
+void clearFilesystem()
+{
+    deleteFile(SPIFFS, "/ssid");
+    deleteFile(SPIFFS, "/pass");
+    deleteFile(SPIFFS, "/broker");
+}
+
+void initializeFilesystem()
+{
 
     if (!existsFile(SPIFFS, "/ssid") || !existsFile(SPIFFS, "/pass") || !existsFile(SPIFFS, "/broker"))
     {
@@ -159,6 +161,58 @@ void setup()
     broker_ip = readStringFromFile(SPIFFS, "/broker");
 
     isConf = true;
+}
+
+void setup()
+{
+
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(BUTTON_PIN, INPUT);
+    Serial.begin(115200);
+    Serial.println("Begin");
+    setDeviceId();
+    Serial.println(deviceID);
+
+    blinkLed(10, 100);
+
+    if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED))
+    {
+        Serial.println("SPIFFS Mount Failed");
+        return;
+    }
+
+    if (digitalRead(BUTTON_PIN))
+    {
+        Serial.println("Clearing filesystem");
+        clearFilesystem();
+        delay(1000);
+        blinkLed(5, 500);
+        delay(1000);
+        ESP.restart();
+    }
+
+    initializeFilesystem();
+    //  return;
+
+    sensors.begin();
+    searchAddresses();
+    Serial.print("Found ");
+    Serial.print(numberOfDevices, DEC);
+    Serial.println(" devices.");
+    for (int i = 0; i < numberOfDevices; i++)
+    {
+        Serial.print("Found address: ");
+        Serial.println(getAddr(*deviceAddresses + i * 8));
+    }
+    // Serial.println(addrs[0]);
+    // Serial.println(addrs[1]);
+    // Serial.println(addrs[2]);
+    // Serial.println();
+    // Serial.println(getAddr(*deviceAddresses));
+    // Serial.println(getAddr(*deviceAddresses + 8));
+    // Serial.println(getAddr(*deviceAddresses + 16));
+
+    // return;
 
     for (int i = 0; i < DHT_CNT; i++)
     {
@@ -182,7 +236,7 @@ void loop()
     // delay(20);
 
     doLed();
-    // return;
+    //  return;
 
     if (isState(STATE_BT_ON) && SerialBT.isReady() && SerialBT.available())
     {
