@@ -112,7 +112,6 @@ void searchAddresses()
     setState(STATE_SEARCH_DS18B20, false);
 }
 
-
 void setDeviceId()
 {
     uint64_t chipid = ESP.getEfuseMac();
@@ -159,6 +158,14 @@ void initializeFilesystem()
     ssid = readStringFromFile(SPIFFS, "/ssid");
     pass = readStringFromFile(SPIFFS, "/pass");
     broker_ip = readStringFromFile(SPIFFS, "/broker");
+    Serial.print("read config: ");
+    Serial.print(ssid);
+    Serial.print(" - ");
+    Serial.print(pass);
+    Serial.print(" - ");
+    Serial.println(broker_ip);
+       
+
 
     isConf = true;
 }
@@ -307,10 +314,12 @@ void publishDHT22(int i)
     Serial.println("Temp: " + String(dht22Data.temperature, 2) + "'C Humidity: " + String(dht22Data.humidity, 1) + "%");
     // client.publish("/DL_temp" + String(i), String(dht22Data.temperature));
     // client.publish("/DL_humid" + String(i), String(dht22Data.humidity));
-
-    sprintf(outStrDHT22, "{\"i\":\"%d\", \"t\":%.2f, \"h\":%.2f}", i, dht22Data.temperature, dht22Data.humidity);
-    // Serial.println(outStrDHT22);
-    client.publish("/DL_temp_humid", outStrDHT22);
+    if (!isnan(dht22Data.temperature) && !isnan(dht22Data.humidity))
+    {
+        sprintf(outStrDHT22, "{\"i\":\"%d\", \"t\":%.2f, \"h\":%.2f}", i, dht22Data.temperature, dht22Data.humidity);
+        // Serial.println(outStrDHT22);
+        client.publish("/DL_temp_humid", outStrDHT22);
+    }
 }
 
 void connect()
@@ -359,6 +368,10 @@ void connect()
 
     client.subscribe("/setParameterReportPeriod");
     client.subscribe("/reset");
+    client.subscribe("/getConfig");
+    client.subscribe("/setSSID");
+    client.subscribe("/setPassword");
+    client.subscribe("/setBrokerIP");
 
     setState(STATE_BROKER_ON, true);
     setState(STATE_BROKER_CONNECTING, false);
@@ -378,6 +391,31 @@ void messageReceived(String &topic, String &payload)
     else if (topic == "/reset")
     {
         ESP.restart();
+    }
+    else if (topic == "/getConfig")
+    {
+        client.publish("/config", String("{\"ssid\":\"") + ssid + "\",\"password\":\"" + pass + "\",\"brokerIP\":\"" + broker_ip + "\"}");
+    }
+    else if (topic == "/setSSID")
+    {
+        String ssid = payload;
+        ssid.trim();
+        Serial.println(ssid);
+        writeFile(SPIFFS, "/ssid", ssid.c_str());
+    }
+    else if (topic == "/setPassword")
+    {
+        String pass = payload;
+        pass.trim();
+        Serial.println(pass);
+        writeFile(SPIFFS, "/pass", pass.c_str());
+    }
+    else if (topic == "/setBrokerIP")
+    {
+        String broker = payload;
+        broker.trim();
+        Serial.println(broker);
+        writeFile(SPIFFS, "/broker", broker.c_str());
     }
 }
 
