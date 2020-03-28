@@ -1,5 +1,172 @@
 [
     {
+        "id": "21676c19.2d7634",
+        "type": "subflow",
+        "name": "SaveChart",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 60,
+                "wires": [
+                    {
+                        "id": "ce800ca.9421bf"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 860,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "7a99477.06afdb8",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "1d575161.377faf",
+        "type": "file",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "x": 850,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "533f82c0.eb16cc",
+        "type": "file in",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "filename": "",
+        "format": "utf8",
+        "sendError": true,
+        "x": 550,
+        "y": 40,
+        "wires": [
+            [
+                "7a99477.06afdb8"
+            ]
+        ]
+    },
+    {
+        "id": "6f912444.84105c",
+        "type": "json",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "1d575161.377faf"
+            ]
+        ]
+    },
+    {
+        "id": "7a99477.06afdb8",
+        "type": "json",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "x": 710,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce800ca.9421bf",
+        "type": "function",
+        "z": "21676c19.2d7634",
+        "name": "LoadSave",
+        "func": "var strSafe=msg.topic;\nif(strSafe)\n{\n    strSafe=strSafe.replace(/[^a-z0-9]/gi, '_').toLowerCase();\n    \n    var loaded=context.get(strSafe)||0;\n    msg.filename =\"c:/users/fatman/.node-red/charts/\"+strSafe+\".dat\";\n    //node.warn(loaded);\n    if(0===loaded)\n    {\n        //load chart!! \n        msg.payload=\"load\";\n        context.set(strSafe,1);\n        // node.log(\"loading \"+strSafe);\n        // node.warn(\"Loading \" +strSafe);\n    }\n    else\n    {\n        // node.log(\"saving \"+strSafe);\n        // node.warn(\"Writing \" +strSafe + '  ' +  msg.filename);\n    }\n    return msg;    \n}\nreturn null;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 60,
+        "wires": [
+            [
+                "2e093e4b.635562"
+            ]
+        ]
+    },
+    {
+        "id": "2e093e4b.635562",
+        "type": "switch",
+        "z": "21676c19.2d7634",
+        "name": "Load data",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "load",
+                "vt": "str"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 60,
+        "wires": [
+            [
+                "533f82c0.eb16cc"
+            ],
+            [
+                "a60f3632.89ccf8"
+            ]
+        ]
+    },
+    {
+        "id": "1535f2e0.687b4d",
+        "type": "debug",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a60f3632.89ccf8",
+        "type": "function",
+        "z": "21676c19.2d7634",
+        "name": "",
+        "func": "var mxd = 100\nvar datas=msg.payload[0].data;\nfor(var idt=0;idt<datas.length;idt++){\n    data=datas[idt];\n    var newData = [];\n    if(data.length<=mxd){\n        newData=data;\n    }\n    else{\n        var step = parseInt(data.length/mxd);\n        \n        var flag=false;\n        for(var i=0;i<data.length;i+=step){\n            if(i==data.length-1){\n                flag=true;\n            }\n            newData[newData.length] = data[i];\n        }\n        if(!flag){\n            newData[newData.length-1]=data[data.length-1];\n        }\n    }\n    datas[idt] = newData;\n    \n    \n}\nmsg.payload[0].data = datas;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 100,
+        "wires": [
+            [
+                "6f912444.84105c"
+            ]
+        ]
+    },
+    {
         "id": "6497ade9.38b574",
         "type": "tab",
         "label": "Flow 2",
@@ -673,6 +840,7 @@
         "id": "be72002b.06bca",
         "type": "ui_chart",
         "z": "6497ade9.38b574",
+        "d": true,
         "name": "ds18 temp",
         "group": "79808eac.ac8b9",
         "order": 1,
@@ -705,7 +873,7 @@
         ],
         "useOldStyle": false,
         "outputs": 1,
-        "x": 1450,
+        "x": 1430,
         "y": 120,
         "wires": [
             []
@@ -734,8 +902,8 @@
         "y": 160,
         "wires": [
             [
-                "be72002b.06bca",
-                "d8f062d0.6cb52"
+                "d8f062d0.6cb52",
+                "be72002b.06bca"
             ]
         ]
     },
@@ -762,8 +930,8 @@
         "y": 120,
         "wires": [
             [
-                "be72002b.06bca",
-                "d8f062d0.6cb52"
+                "d8f062d0.6cb52",
+                "be72002b.06bca"
             ]
         ]
     },
@@ -790,8 +958,8 @@
         "y": 80,
         "wires": [
             [
-                "be72002b.06bca",
-                "d8f062d0.6cb52"
+                "d8f062d0.6cb52",
+                "be72002b.06bca"
             ]
         ]
     },
@@ -1018,6 +1186,7 @@
         "id": "abd8c0b5.a1eeb",
         "type": "ui_chart",
         "z": "6497ade9.38b574",
+        "d": true,
         "name": "humidity",
         "group": "79808eac.ac8b9",
         "order": 3,
@@ -1228,6 +1397,7 @@
         "id": "21c90cca.dfc8c4",
         "type": "ui_chart",
         "z": "6497ade9.38b574",
+        "d": true,
         "name": "dht22 temp",
         "group": "79808eac.ac8b9",
         "order": 2,
@@ -1344,8 +1514,7 @@
         "y": 220,
         "wires": [
             [
-                "d59c52f3.e9aa2",
-                "433d0b83.005554"
+                "d59c52f3.e9aa2"
             ]
         ]
     },
@@ -1399,9 +1568,20 @@
         "y": 380,
         "wires": [
             [
-                "d59c52f3.e9aa2",
-                "433d0b83.005554"
+                "d59c52f3.e9aa2"
             ]
+        ]
+    },
+    {
+        "id": "494d97dd.6d78d8",
+        "type": "subflow:21676c19.2d7634",
+        "z": "6497ade9.38b574",
+        "name": "",
+        "env": [],
+        "x": 1670,
+        "y": 120,
+        "wires": [
+            []
         ]
     },
     {
